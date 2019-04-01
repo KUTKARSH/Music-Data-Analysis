@@ -1,0 +1,3 @@
+running generate_web_data.py
+running generate_web_data.py
+running populate-lookup.sh

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+batchid=`cat /home/cloudera/utkarsh/project/logs/current-batch.txt`
+LOGFILE=/home/cloudera/utkarsh/project/logs/log_batch_$batchid
+
+echo "Placing data files from local to HDFS..." >> $LOGFILE
+
+#hadoop fs -rm -r /home/cloudera/utkarsh/project/batch${batchid}/
+
+hadoop fs -mkdir -p /home/cloudera/utkarsh/project/batch${batchid}/mob/
+
+hadoop fs -put /home/cloudera/utkarsh/project/data/mob/* /home/cloudera/utkarsh/project/batch${batchid}/mob/
+
+echo "Running hive script for formatted data load..." >> $LOGFILE
+
+hive -hiveconf batchid=$batchid -f /home/cloudera/utkarsh/project/scripts/formatted_hive_load.hql
